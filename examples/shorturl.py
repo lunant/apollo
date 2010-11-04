@@ -7,6 +7,7 @@ This is an example web application powered by Apollo.
 import anydbm
 import random
 import werkzeug.utils
+import werkzeug.exceptions
 import apollo.wsgi
 from apollo.routing import Map, Rule
 
