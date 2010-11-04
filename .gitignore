@@ -1,0 +1,5 @@
+docs/_build
+examples/shorturl.db
+*.pyc
+*.egg-info
+.*.swp
