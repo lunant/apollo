@@ -77,12 +77,11 @@ class Application(object):
         try:
             endpoint, values = adapter.match()
             request = Request(environ)
+            context = apollo.handler.Context(request, self, adapter)
             if isinstance(endpoint, basestring):
                 endpoint = werkzeug.utils.import_string(endpoint)
-            if isinstance(endpoint, apollo.handler.take_application):
-                endpoint = endpoint.bind(self)
             if callable(endpoint):
-                response = endpoint(request, **values)
+                response = endpoint(context, **values)
                 if not isinstance(response, werkzeug.wrappers.BaseResponse):
                     if not isinstance(response, collections.Iterable):
                         raise TypeError("response must be a werkzeug.wrappers."

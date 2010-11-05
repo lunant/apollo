@@ -2,66 +2,65 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
+import collections
+import werkzeug.wrappers
+import apollo.routing
 
 
-class take_application(object):
-    """A decorator that makes ``function`` to take an
-    :class:`~apollo.wsgi.Application` instance as its first argument.
+class Context(collections.namedtuple("Ctx", "request application map_adapter")):
+    """The :func:`~collections.namedtuple` type that represents a request
+    context.
     
-    ::
+    It has three tuple fields in order: :attr:`request`, :attr:`application`
+    and :attr:`map_adapter`::
 
-        from apollo.handler import take_application
-        from apollo.wsgi import Application
+        assert isinstance(context, Context)
+        request, application, map_adapter = context
 
-        @take_application
-        def handle(application, request):
-            '''Handle requests.'''
-            assert isinstance(application, Application)
-            return "response"
-
-    :param function: a function to make to take an application instance as
-                     its first argument.
-    :type function: callable object
-    :param application: an optional application to bind
+    :param request: a request object
+    :type request: :class:`~apollo.wsgi.Request`,
+                   :class:`werkzeug.BaseRequest`
+    :param application: an application instance
     :type application: :class:`~apollo.wsgi.Application`
+    :param map_adapter: a map adapter instance
+    :type map_adapter: :class:`apollo.routing.MapAdapter
+                       <werkzeug.routing.MapAdapter>`
+
+    .. attribute:: request
+
+       The instance of :class:`~apollo.wsgi.Request` which is a subclass of
+       :class:`werkzeug.BaseRequest`. (The first field of the tuple.)
+
+    .. attribute:: application
+
+       The :class:`~apollo.wsgi.Application` instance. (The second field of
+       the tuple.)
+
+    .. attribute:: map_adapter
+
+       The :class:`apollo.routing.MapAdapter <werkzeug.routing.MapAdapter>`
+       instance. (The third field of the tuple.)
 
     """
 
-    __slots__ = "function", "application"
-
-    def __init__(self, function, application=None):
+    def __new__(cls, request, application, map_adapter):
+        if not isinstance(request, werkzeug.wrappers.BaseRequest):
+            raise TypeError("request must be an instance of apollo.wsgi."
+                            "Request or werkzeug.wrappers.BaseRequest object, "
+                            "not " + repr(request))
         from apollo.wsgi import Application
-        if not callable(function):
-            raise TypeError("function must be callable, but {0!r} "
-                            "passed".format(function))
-        elif not (application is None or isinstance(application, Application)):
+        if not isinstance(application, Application):
             raise TypeError("application must be an apollo.wsgi.Application "
                             "instance, not " + repr(application))
-        self.function = function
-        self.application = application
+        elif not isinstance(map_adapter, apollo.routing.MapAdapter):
+            raise TypeError("map_adapter must be an instance of apollo."
+                            "routing.MapAdapter (which is werkzeug.routing."
+                            "MapAdapter), not " + repr(map_adapter))
+        BaseContext = Context.__bases__[0]
+        return BaseContext.__new__(cls, request, application, map_adapter)
 
-    def bind(self, application):
-        """Returns a application-bound function.
-
-        .. sourcecode:: pycon
-
-           >>> @take_application
-           ... def handle(application, request):
-           ...     pass
-           ...
-           >>> handle.application
-           >>> from apollo.wsgi import Application
-           >>> handle.bind(Application()).application  # doctest: +ELLIPSIS
-           <apollo.wsgi.Application object at ...>
-
-        :param application: an application to bind
-        :type application: :class:`~apollo.wsgi.Application`
-
-        """
-        return type(self)(self.function, application)
-
-    def __call__(self, *args, **kwargs):
-        if self.application:
-            return self.function(self.application, *args, **kwargs)
-        return self.function(*args, **kwargs)
+    @property
+    def app(self):
+        """Alias of :attr:`application`."""
+        return self.application
 
