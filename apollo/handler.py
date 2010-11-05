@@ -64,3 +64,22 @@ class Context(collections.namedtuple("Ctx", "request application map_adapter")):
         """Alias of :attr:`application`."""
         return self.application
 
+    @property
+    def args(self):
+        """Alias of :attr:`request.args <werkzeug.BaseRequest.args>`."""
+        return self.request.args
+
+    @property
+    def form(self):
+        """Alias of :attr:`request.form <werkzeug.BaseRequest.form>`."""
+        return self.request.form
+
+    @property
+    def values(self):
+        """Combined :class:`~werkzeug.ImmutableMultiDict` for :attr:`args`
+        and :attr:`form`. Alias of :attr:`request.values
+        <werkzeug.wrappers.values>`.
+
+        """
+        return self.request.values
+
