@@ -6,7 +6,7 @@ Here's a small but complete example application for Apollo::
     import apollo.wsgi
     from apollo.routing import Map, Rule
 
-    def greet(request, name=None):
+    def greet(context, name=None):
         if name:
             return "Hello, ", name, "."
         return "Hello."
