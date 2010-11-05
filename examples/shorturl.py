@@ -112,7 +112,7 @@ def expand(context, slug):
 
 
 class ShortUrlApplication(apollo.wsgi.Application):
-    """My URL shortener."""
+    """URL shortener application."""
 
     rules = Map([
         Rule("/", endpoint=index, methods=["GET"]),
@@ -134,9 +134,9 @@ class ShortUrlApplication(apollo.wsgi.Application):
 
 if __name__ == "__main__":
     import sys
-    import wsgiref.simple_server
+    import werkzeug.serving
+    dbm_filename = sys.argv[1] if len(sys.argv) > 1 else "shorturl"
     application = ShortUrlApplication(dbm_filename="shorturl")
-    port = sys.argv[1] if len(sys.argv) > 1 else 8080
-    httpd = wsgiref.simple_server.make_server("", port, application)
-    httpd.serve_forever()
+    port = sys.argv[2] if len(sys.argv) > 2 else 8080
+    werkzeug.serving.run_simple("", port, application)
 
