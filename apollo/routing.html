@@ -1,0 +1,253 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>apollo.routing — Extended werkzeug.routing &mdash; Apollo documentation</title>
+    <link rel="stylesheet" href="../_static/apollo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Apollo documentation" href="../index.html" />
+    <link rel="up" title="apollo — Yet another web framework" href="../apollo.html" />
+    <link rel="next" title="apollo.handler — Request handler" href="handler.html" />
+    <link rel="prev" title="apollo.wsgi — WSGI application interface" href="wsgi.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="handler.html" title="apollo.handler — Request handler"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="wsgi.html" title="apollo.wsgi — WSGI application interface"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Apollo documentation</a> &raquo;</li>
+          <li><a href="../apollo.html" accesskey="U"><tt class="docutils literal docutils literal docutils literal"><span class="pre">apollo</span></tt> &#8212; Yet another web framework</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <span class="target" id="module-apollo.routing"></span><div class="section" id="apollo-routing-extended-werkzeug-routing">
+<h1><a class="reference internal" href="#module-apollo.routing" title="apollo.routing"><tt class="xref py py-mod docutils literal"><span class="pre">apollo.routing</span></tt></a> &#8212; Extended <a class="reference external" href="http://werkzeug.pocoo.org/documentation/0.6.2/routing.html#module-werkzeug.routing" title="(in Werkzeug v0.6.1)"><tt class="xref py py-mod docutils literal"><span class="pre">werkzeug.routing</span></tt></a><a class="headerlink" href="#apollo-routing-extended-werkzeug-routing" title="Permalink to this headline">¶</a></h1>
+<p>Apollo slightly extends <a class="reference external" href="http://werkzeug.pocoo.org/">Werkzeug</a>&#8216;s <a class="reference external" href="http://werkzeug.pocoo.org/documentation/0.6.2/routing.html#module-werkzeug.routing" title="(in Werkzeug v0.6.1)"><tt class="xref py py-mod docutils literal"><span class="pre">routing</span></tt></a> module.</p>
+<dl class="class">
+<dt id="apollo.routing.Map">
+<em class="property">class </em><tt class="descclassname">apollo.routing.</tt><tt class="descname">Map</tt><big>(</big><em>rules=None</em>, <em>default_subdomain=''</em>, <em>charset='utf-8'</em>, <em>strict_slashes=True</em>, <em>redirect_defaults=True</em>, <em>converters=None</em>, <em>sort_parameters=False</em>, <em>sort_key=None</em><big>)</big><a class="reference internal" href="../_modules/apollo/routing.html#Map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apollo.routing.Map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://werkzeug.pocoo.org/documentation/0.6.2/routing.html#werkzeug.routing.Map" title="(in Werkzeug v0.6.1)"><tt class="xref py py-class docutils literal"><span class="pre">werkzeug.routing.Map</span></tt></a></p>
+<p>The map class stores all the URL rules and some configuration
+parameters.  Some of the configuration values are only stored on the
+<cite>Map</cite> instance since those affect all rules, others are just defaults
+and can be overridden for each rule.  Note that you have to specify all
+arguments besides the <cite>rules</cite> as keyword arguments!</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>rules</strong> &#8211; sequence of url rules for this map.</li>
+<li><strong>default_subdomain</strong> &#8211; The default subdomain for rules without a
+subdomain defined.</li>
+<li><strong>charset</strong> &#8211; charset of the url. defaults to <tt class="docutils literal"><span class="pre">&quot;utf-8&quot;</span></tt></li>
+<li><strong>strict_slashes</strong> &#8211; Take care of trailing slashes.</li>
+<li><strong>redirect_defaults</strong> &#8211; This will redirect to the default rule if it
+wasn&#8217;t visited that way. This helps creating
+unique URLs.</li>
+<li><strong>converters</strong> &#8211; A dict of converters that adds additional converters
+to the list of converters. If you redefine one
+converter this will override the original one.</li>
+<li><strong>sort_parameters</strong> &#8211; If set to <cite>True</cite> the url parameters are sorted.
+See <cite>url_encode</cite> for more details.</li>
+<li><strong>sort_key</strong> &#8211; The sort key function for <cite>url_encode</cite>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.5: </span><cite>sort_parameters</cite> and <cite>sort_key</cite> was added.</p>
+<dl class="method">
+<dt id="apollo.routing.Map.add">
+<tt class="descname">add</tt><big>(</big><em>rulefactory</em><big>)</big><a class="headerlink" href="#apollo.routing.Map.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new rule or factory to the map and bind it.  Requires that the
+rule is not bound to another map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>rulefactory</strong> &#8211; a <tt class="xref py py-class docutils literal"><span class="pre">Rule</span></tt> or <tt class="xref py py-class docutils literal"><span class="pre">RuleFactory</span></tt></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="apollo.routing.Map.bind">
+<tt class="descname">bind</tt><big>(</big><em>server_name</em>, <em>script_name=None</em>, <em>subdomain=None</em>, <em>url_scheme='http'</em>, <em>default_method='GET'</em>, <em>path_info=None</em><big>)</big><a class="headerlink" href="#apollo.routing.Map.bind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new <tt class="xref py py-class docutils literal"><span class="pre">MapAdapter</span></tt> with the details specified to the
+call.  Note that <cite>script_name</cite> will default to <tt class="docutils literal"><span class="pre">'/'</span></tt> if not further
+specified or <cite>None</cite>.  The <cite>server_name</cite> at least is a requirement
+because the HTTP RFC requires absolute URLs for redirects and so all
+redirect exceptions raised by Werkzeug will contain the full canonical
+URL.</p>
+<p>If no path_info is passed to <tt class="xref py py-meth docutils literal"><span class="pre">match()</span></tt> it will use the default path
+info passed to bind.  While this doesn&#8217;t really make sense for
+manual bind calls, it&#8217;s useful if you bind a map to a WSGI
+environment which already contains the path info.</p>
+<p><cite>subdomain</cite> will default to the <cite>default_subdomain</cite> for this map if
+no defined. If there is no <cite>default_subdomain</cite> you cannot use the
+subdomain feature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="apollo.routing.Map.bind_to_environ">
+<tt class="descname">bind_to_environ</tt><big>(</big><em>environ</em>, <em>server_name=None</em>, <em>subdomain=None</em><big>)</big><a class="headerlink" href="#apollo.routing.Map.bind_to_environ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Like <a class="reference internal" href="#apollo.routing.Map.bind" title="apollo.routing.Map.bind"><tt class="xref py py-meth docutils literal"><span class="pre">bind()</span></tt></a> but you can pass it an WSGI environment and it
+will fetch the information from that dictionary.  Note that because of
+limitations in the protocol there is no way to get the current
+subdomain and real <cite>server_name</cite> from the environment.  If you don&#8217;t
+provide it, Werkzeug will use <cite>SERVER_NAME</cite> and <cite>SERVER_PORT</cite> (or
+<cite>HTTP_HOST</cite> if provided) as used <cite>server_name</cite> with disabled subdomain
+feature.</p>
+<p>If <cite>subdomain</cite> is <cite>None</cite> but an environment and a server name is
+provided it will calculate the current subdomain automatically.
+Example: <cite>server_name</cite> is <tt class="docutils literal"><span class="pre">'example.com'</span></tt> and the <cite>SERVER_NAME</cite>
+in the wsgi <cite>environ</cite> is <tt class="docutils literal"><span class="pre">'staging.dev.example.com'</span></tt> the calculated
+subdomain will be <tt class="docutils literal"><span class="pre">'staging.dev'</span></tt>.</p>
+<p>If the object passed as environ has an environ attribute, the value of
+this attribute is used instead.  This allows you to pass request
+objects.  Additionally <cite>PATH_INFO</cite> added as a default of the
+<tt class="xref py py-class docutils literal"><span class="pre">MapAdapter</span></tt> so that you don&#8217;t have to pass the path info to
+the match method.</p>
+<p class="versionchanged">
+<span class="versionmodified">Changed in version 0.5: </span>previously this method accepted a bogus <cite>calculate_subdomain</cite>
+parameter that did not have any effect.  It was removed because
+of that.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>environ</strong> &#8211; a WSGI environment.</li>
+<li><strong>server_name</strong> &#8211; an optional server name hint (see above).</li>
+<li><strong>subdomain</strong> &#8211; optionally the current subdomain (see above).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="apollo.routing.Map.is_endpoint_expecting">
+<tt class="descname">is_endpoint_expecting</tt><big>(</big><em>endpoint</em>, <em>*arguments</em><big>)</big><a class="headerlink" href="#apollo.routing.Map.is_endpoint_expecting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate over all rules and check if the endpoint expects
+the arguments provided.  This is for example useful if you have
+some URLs that expect a language code and others that do not and
+you want to wrap the builder a bit so that the current language
+code is automatically added if not provided but endpoints expect
+it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>endpoint</strong> &#8211; the endpoint to check.</li>
+<li><strong>arguments</strong> &#8211; this function accepts one or more arguments
+as positional arguments.  Each one of them is
+checked.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="apollo.routing.Map.iter_rules">
+<tt class="descname">iter_rules</tt><big>(</big><em>endpoint=None</em><big>)</big><a class="headerlink" href="#apollo.routing.Map.iter_rules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate over all rules or the rules of an endpoint.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>endpoint</strong> &#8211; if provided only the rules for that endpoint
+are returned.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">an iterator</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="apollo.routing.Map.update">
+<tt class="descname">update</tt><big>(</big><big>)</big><a class="headerlink" href="#apollo.routing.Map.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called before matching and building to keep the compiled rules
+in the correct order after things changed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="handler.html" title="apollo.handler — Request handler"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="wsgi.html" title="apollo.wsgi — WSGI application interface"
+             >previous</a> |</li>
+        <li><a href="../index.html">Apollo documentation</a> &raquo;</li>
+          <li><a href="../apollo.html" ><tt class="docutils literal docutils literal docutils literal"><span class="pre">apollo</span></tt> &#8212; Yet another web framework</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Lunant.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>
