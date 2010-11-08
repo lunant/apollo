@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ShortURL: Shorten your long URLs</title>
+  </head>
+  <body>
+    <h1>ShortURL</h1>
+    <p>Shorten your long URLs</p>
+    <form action="" method="post">
+      <fieldset>
+        {% if created_slug %}
+          <p><a href="{{ created_slug.url }}">{{ created_slug.url }}</a>
+             &rarr; <a href="{{ created_url }}">{{ created_url }}</a></p>
+        {% endif %}
+        <label>URL
+               <input type="text" name="url"></label>
+        <button type="submit">Shorten</button>
+      </fieldset>
+    </form>
+  </body>
+</html>

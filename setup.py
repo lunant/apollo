@@ -2,6 +2,18 @@ try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
+import doctest
+import unittest
+
+
+def run_tests():
+    """Run all doctests."""
+    from werkzeug import find_modules
+    modules = find_modules("apollo", include_packages=True, recursive=True)
+    tests = unittest.TestSuite()
+    for module in modules:
+        tests.addTests(doctest.DocTestSuite(module))
+    return tests
 
 
 setup(name="apollo",
@@ -14,5 +26,7 @@ setup(name="apollo",
       platforms="any",
       packages=["apollo"],
       install_requires=["Werkzeug>=0.6.2", "Jinja2>=2.5.4"],
-      extras_require={"doc": ["Sphinx>=1.0.4"]})
+      extras_require={"doc": ["Sphinx>=1.0.4"]},
+      test_suite="__main__.run_tests"
+)
 

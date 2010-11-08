@@ -27,3 +27,9 @@ pre { border-left: 1px solid silver; margin: 1em 0 1em 2em;
 tt { font-family: 'Droid Sans Mono', monospace; font-size: 90% !important; }
 
 a .viewcode-link { color: #d5d966; }
+
+.admonition .admonition-title { float: left; }
+.admonition .admonition-title:after { content: ':'; }
+.admonition .last { float: none; }
+.admonition-todo { color: gray; font-size: small; }
+
