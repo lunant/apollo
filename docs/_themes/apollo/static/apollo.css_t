@@ -33,3 +33,5 @@ a .viewcode-link { color: #d5d966; }
 .admonition .last { float: none; }
 .admonition-todo { color: gray; font-size: small; }
 
+#fork-me-on-github a { border: none; }
+#fork-me-on-github img { position: absolute; top: 0; right: 0; border: 0; }
