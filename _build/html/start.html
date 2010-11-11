@@ -1,0 +1,133 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting started &mdash; Apollo documentation</title>
+    <link rel="stylesheet" href="_static/apollo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Apollo documentation" href="index.html" />
+    <link rel="next" title="apollo — Yet another web framework" href="apollo.html" />
+    <link rel="prev" title="Apollo, an yet another web framework" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="apollo.html" title="apollo — Yet another web framework"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Apollo, an yet another web framework"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Apollo documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>All you need are just <a class="reference external" href="http://python.org/">Python</a> 2.6 (or higher, but 3.x not supported currently)
+and <a class="reference external" href="http://pip.openplans.org/">pip</a>. We recommend Python 2.7, the latest version of Python 2.x series.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>You can install Apollo of bleeding edge version using pip.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install git+http://github.com/lunant/apollo.git
+</pre></div>
+</div>
+</div>
+<div class="section" id="hello-world">
+<h2>Hello world!<a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h2>
+<p>Here&#8217;s a small but complete example application for Apollo (<tt class="file docutils literal"><span class="pre">hello.py</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">apollo.wsgi</span>
+<span class="kn">from</span> <span class="nn">apollo.routing</span> <span class="kn">import</span> <span class="n">Map</span><span class="p">,</span> <span class="n">Rule</span>
+
+<span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&quot;Hello, &quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s">&quot;.&quot;</span>
+    <span class="k">return</span> <span class="s">&quot;Hello.&quot;</span>
+
+<span class="k">class</span> <span class="nc">HelloApplication</span><span class="p">(</span><span class="n">apollo</span><span class="o">.</span><span class="n">wsgi</span><span class="o">.</span><span class="n">Application</span><span class="p">):</span>
+    <span class="n">rules</span> <span class="o">=</span> <span class="n">Map</span><span class="p">([</span>
+        <span class="n">Rule</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="n">greet</span><span class="p">),</span>
+        <span class="n">Rule</span><span class="p">(</span><span class="s">&quot;/&lt;name&gt;&quot;</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="n">greet</span><span class="p">)</span>
+    <span class="p">])</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">werkzeug.serving</span> <span class="kn">import</span> <span class="n">run_simple</span>
+    <span class="n">run_simple</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">,</span> <span class="n">HelloApplication</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>The above small program greets when the user requests the application.</p>
+<p>You can run this program directly.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>python hello.py
+ * Running on http://localhost:8080/
+</pre></div>
+</div>
+<p>Then go <a class="reference external" href="http://localhost:8080/">http://localhost:8080/</a> in your web browser!</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="apollo.html" title="apollo — Yet another web framework"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Apollo, an yet another web framework"
+             >previous</a> |</li>
+        <li><a href="index.html">Apollo documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+  
+    <div class="footer">
+        &copy; Copyright 2010, Lunant.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  <div id="fork-me-on-github">
+    <a href="http://github.com/lunant/apollo">
+      <img src="_static/forkme_light_background.png" alt="Fork me on GitHub" />
+    </a>
+  </div>
+
+  </body>
+</html>

@@ -1,0 +1,172 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>apollo.template — Templating &mdash; Apollo documentation</title>
+    <link rel="stylesheet" href="../_static/apollo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Apollo documentation" href="../index.html" />
+    <link rel="up" title="apollo — Yet another web framework" href="../apollo.html" />
+    <link rel="next" title="Todo list" href="../todos.html" />
+    <link rel="prev" title="apollo.handler — Request handler" href="handler.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../todos.html" title="Todo list"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="handler.html" title="apollo.handler — Request handler"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Apollo documentation</a> &raquo;</li>
+          <li><a href="../apollo.html" accesskey="U"><tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">apollo</span></tt> &#8212; Yet another web framework</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <span class="target" id="module-apollo.template"></span><div class="section" id="apollo-template-templating">
+<h1><a class="reference internal" href="#module-apollo.template" title="apollo.template"><tt class="xref py py-mod docutils literal"><span class="pre">apollo.template</span></tt></a> &#8212; Templating<a class="headerlink" href="#apollo-template-templating" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="apollo.template.Result">
+<em class="property">class </em><tt class="descclassname">apollo.template.</tt><tt class="descname">Result</tt><big>(</big><em>__value__={}</em>, <em>**items</em><big>)</big><a class="headerlink" href="#apollo.template.Result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">werkzeug.datastructures.ImmutableDict</span></tt></p>
+<p>The result dictionary for templating, which is immutable.</p>
+<p>It combines key-value pairs for templating and a single <a class="reference internal" href="#apollo.template.Result.value" title="apollo.template.Result.value"><tt class="xref py py-attr docutils literal"><span class="pre">value</span></tt></a>
+(<tt class="docutils literal"><span class="pre">__value__</span></tt>) for serialization formats like <a class="reference external" href="http://www.json.org/">JSON</a>, <a class="reference external" href="http://www.yaml.org/">YAML</a>.</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">Result</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span>
+<span class="go">apollo.template.Result(123, a=1, b=2, c=3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">value</span>
+<span class="go">123</span>
+</pre></div>
+</div>
+<p>The argument <tt class="docutils literal"><span class="pre">__value__</span></tt> of the constructor can be omitted. In these
+case, <a class="reference internal" href="#apollo.template.Result.value" title="apollo.template.Result.value"><tt class="xref py py-attr docutils literal"><span class="pre">value</span></tt></a> returns just itself.</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">Result</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span>
+<span class="go">apollo.template.Result({&#39;a&#39;: 1, &#39;b&#39;: 2})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">value</span>
+<span class="go">apollo.template.Result({&#39;a&#39;: 1, &#39;b&#39;: 2})</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>__value__</strong> &#8211; A single value for serialization formats, or a mapping
+object. Default is <tt class="docutils literal"><span class="pre">{}</span></tt>.</li>
+<li><strong>**items</strong> &#8211; Dictionary items.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="apollo.template.Result.__value__">
+<tt class="descname">__value__</tt><a class="headerlink" href="#apollo.template.Result.__value__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias of <a class="reference internal" href="#apollo.template.Result.value" title="apollo.template.Result.value"><tt class="xref py py-attr docutils literal"><span class="pre">value</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="apollo.template.Result.value">
+<tt class="descname">value</tt><a class="headerlink" href="#apollo.template.Result.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The value for serialization formats e.g. <a class="reference external" href="http://www.json.org/">JSON</a>, <a class="reference external" href="http://www.yaml.org/">YAML</a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="apollo.template.TemplateResult">
+<em class="property">class </em><tt class="descclassname">apollo.template.</tt><tt class="descname">TemplateResult</tt><big>(</big><em>__template__</em>, <em>__value__={}</em>, <em>**items</em><big>)</big><a class="headerlink" href="#apollo.template.TemplateResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#apollo.template.Result" title="apollo.template.Result"><tt class="xref py py-class docutils literal"><span class="pre">apollo.template.Result</span></tt></a></p>
+<p>Template-bound result dictionary.</p>
+<div class="admonition-todo admonition " id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">To be more documented.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="apollo.template.use_template">
+<em class="property">class </em><tt class="descclassname">apollo.template.</tt><tt class="descname">use_template</tt><big>(</big><em>template_name</em><big>)</big><a class="headerlink" href="#apollo.template.use_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>The decorator that marks a function to use the template.</p>
+<div class="admonition-todo admonition " id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">To be more documented.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="apollo.template.use">
+<tt class="descclassname">apollo.template.</tt><tt class="descname">use</tt><a class="headerlink" href="#apollo.template.use" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#apollo.template.use_template" title="apollo.template.use_template"><tt class="xref py py-class docutils literal"><span class="pre">use_template</span></tt></a></p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../todos.html" title="Todo list"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="handler.html" title="apollo.handler — Request handler"
+             >previous</a> |</li>
+        <li><a href="../index.html">Apollo documentation</a> &raquo;</li>
+          <li><a href="../apollo.html" ><tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">apollo</span></tt> &#8212; Yet another web framework</a> &raquo;</li> 
+      </ul>
+    </div>
+  
+    <div class="footer">
+        &copy; Copyright 2010, Lunant.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  <div id="fork-me-on-github">
+    <a href="http://github.com/lunant/apollo">
+      <img src="_static/forkme_light_background.png" alt="Fork me on GitHub" />
+    </a>
+  </div>
+
+  </body>
+</html>
