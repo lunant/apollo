@@ -3,12 +3,15 @@
 
 """
 import collections
+import os.path
 import werkzeug.wrappers
 import werkzeug.routing
 import werkzeug.utils
 import werkzeug.exceptions
+import jinja2
 import apollo.routing
 import apollo.handler
+import apollo.template
 
 
 class Request(werkzeug.wrappers.Request):
@@ -72,6 +75,37 @@ class Application(object):
         for attr, val in extra_options.iteritems():
             setattr(self, attr, val)
 
+    @werkzeug.utils.cached_property
+    def template_environment(self):
+        """:class:`jinja2.Environment` instance.
+
+        .. todo:: To be more documented.
+
+        """
+        return jinja2.Environment(loader=self.template_loader)
+
+    @werkzeug.utils.cached_property
+    def template_loader(self):
+        """:class:`jinja2.Loader` instance.
+        
+        .. todo:: To be more documented.
+
+        """
+        return jinja2.FileSystemLoader(self.template_path)
+
+    @werkzeug.utils.cached_property
+    def template_path(self):
+        """The path of the directory that contains template files.
+
+        .. todo:: To be documented.
+
+        """
+        mod = type(self).__module__
+        if mod in ("__main__", __name__):
+            return "templates"
+        mod = reduce(getattr, mod.split("."), __import__(mod))
+        return os.path.join(os.path.dirname(mod.__file__), "templates")
+
     def __call__(self, environ, start_response):
         adapter = self.rules.bind_to_environ(environ)
         try:
@@ -82,7 +116,14 @@ class Application(object):
                 endpoint = werkzeug.utils.import_string(endpoint)
             if callable(endpoint):
                 response = endpoint(context, **values)
-                if not isinstance(response, werkzeug.wrappers.BaseResponse):
+                if isinstance(response, apollo.template.TemplateResult):
+                    template = self.template_environment.get_template(
+                        response.template_name + ".html",
+                        globals=dict(__context__=context)
+                    )
+                    response = Response(template.generate(response),
+                                        content_type="text/html")
+                elif not isinstance(response, werkzeug.wrappers.BaseResponse):
                     if not isinstance(response, collections.Iterable):
                         raise TypeError("response must be a werkzeug.wrappers."
                                         "Response instance or an iterable "

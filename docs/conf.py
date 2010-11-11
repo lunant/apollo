@@ -229,3 +229,6 @@ intersphinx_mapping = {
 
 autodoc_member_order = "bysource"
 
+todo_include_todos = True
+
+

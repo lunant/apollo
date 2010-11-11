@@ -8,4 +8,5 @@
       apollo/wsgi
       apollo/routing
       apollo/handler
+      apollo/template
 

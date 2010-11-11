@@ -27,6 +27,7 @@ Contents
 
    start
    apollo
+   todos
 
 .. _Python: http://python.org/
 .. _Werkzeug: http://werkzeug.pocoo.org/
