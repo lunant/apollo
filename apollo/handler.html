@@ -23,6 +23,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="Apollo documentation" href="../index.html" />
     <link rel="up" title="apollo — Yet another web framework" href="../apollo.html" />
+    <link rel="next" title="apollo.template — Templating" href="template.html" />
     <link rel="prev" title="apollo.routing — Extended werkzeug.routing" href="routing.html" /> 
   </head>
   <body>
@@ -35,6 +36,9 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="template.html" title="apollo.template — Templating"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="routing.html" title="apollo.routing — Extended werkzeug.routing"
              accesskey="P">previous</a> |</li>
@@ -51,7 +55,7 @@
 <h1><a class="reference internal" href="#module-apollo.handler" title="apollo.handler"><tt class="xref py py-mod docutils literal"><span class="pre">apollo.handler</span></tt></a> &#8212; Request handler<a class="headerlink" href="#apollo-handler-request-handler" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="apollo.handler.Context">
-<em class="property">class </em><tt class="descclassname">apollo.handler.</tt><tt class="descname">Context</tt><a class="reference internal" href="../_modules/apollo/handler.html#Context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apollo.handler.Context" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">apollo.handler.</tt><tt class="descname">Context</tt><a class="headerlink" href="#apollo.handler.Context" title="Permalink to this definition">¶</a></dt>
 <dd><p>The <a class="reference external" href="http://docs.python.org/library/collections.html#collections.namedtuple" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">namedtuple()</span></tt></a> type that represents a request
 context.</p>
 <p>It has three tuple fields in order: <a class="reference internal" href="#apollo.handler.Context.request" title="apollo.handler.Context.request"><tt class="xref py py-attr docutils literal"><span class="pre">request</span></tt></a>, <a class="reference internal" href="#apollo.handler.Context.application" title="apollo.handler.Context.application"><tt class="xref py py-attr docutils literal"><span class="pre">application</span></tt></a>
@@ -97,25 +101,25 @@ instance. (The third field of the tuple.)</p>
 
 <dl class="attribute">
 <dt id="apollo.handler.Context.app">
-<tt class="descname">app</tt><a class="reference internal" href="../_modules/apollo/handler.html#Context.app"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apollo.handler.Context.app" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">app</tt><a class="headerlink" href="#apollo.handler.Context.app" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias of <a class="reference internal" href="#apollo.handler.Context.application" title="apollo.handler.Context.application"><tt class="xref py py-attr docutils literal"><span class="pre">application</span></tt></a>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="apollo.handler.Context.args">
-<tt class="descname">args</tt><a class="reference internal" href="../_modules/apollo/handler.html#Context.args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apollo.handler.Context.args" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">args</tt><a class="headerlink" href="#apollo.handler.Context.args" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias of <a class="reference external" href="http://werkzeug.pocoo.org/documentation/0.6.2/wrappers.html#werkzeug.BaseRequest.args" title="(in Werkzeug v0.6.1)"><tt class="xref py py-attr docutils literal"><span class="pre">request.args</span></tt></a>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="apollo.handler.Context.form">
-<tt class="descname">form</tt><a class="reference internal" href="../_modules/apollo/handler.html#Context.form"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apollo.handler.Context.form" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">form</tt><a class="headerlink" href="#apollo.handler.Context.form" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias of <a class="reference external" href="http://werkzeug.pocoo.org/documentation/0.6.2/wrappers.html#werkzeug.BaseRequest.form" title="(in Werkzeug v0.6.1)"><tt class="xref py py-attr docutils literal"><span class="pre">request.form</span></tt></a>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="apollo.handler.Context.values">
-<tt class="descname">values</tt><a class="reference internal" href="../_modules/apollo/handler.html#Context.values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apollo.handler.Context.values" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">values</tt><a class="headerlink" href="#apollo.handler.Context.values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Combined <a class="reference external" href="http://werkzeug.pocoo.org/documentation/0.6.2/datastructures.html#werkzeug.ImmutableMultiDict" title="(in Werkzeug v0.6.1)"><tt class="xref py py-class docutils literal"><span class="pre">ImmutableMultiDict</span></tt></a> for <a class="reference internal" href="#apollo.handler.Context.args" title="apollo.handler.Context.args"><tt class="xref py py-attr docutils literal"><span class="pre">args</span></tt></a>
 and <a class="reference internal" href="#apollo.handler.Context.form" title="apollo.handler.Context.form"><tt class="xref py py-attr docutils literal"><span class="pre">form</span></tt></a>. Alias of <tt class="xref py py-attr docutils literal"><span class="pre">request.values</span></tt>.</p>
 </dd></dl>
@@ -139,15 +143,25 @@ and <a class="reference internal" href="#apollo.handler.Context.form" title="apo
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="template.html" title="apollo.template — Templating"
+             >next</a> |</li>
+        <li class="right" >
           <a href="routing.html" title="apollo.routing — Extended werkzeug.routing"
              >previous</a> |</li>
         <li><a href="../index.html">Apollo documentation</a> &raquo;</li>
           <li><a href="../apollo.html" ><tt class="docutils literal docutils literal"><span class="pre">apollo</span></tt> &#8212; Yet another web framework</a> &raquo;</li> 
       </ul>
     </div>
+  
     <div class="footer">
         &copy; Copyright 2010, Lunant.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
     </div>
+  <div id="fork-me-on-github">
+    <a href="http://github.com/lunant/apollo">
+      <img src="_static/forkme_light_background.png" alt="Fork me on GitHub" />
+    </a>
+  </div>
+
   </body>
 </html>

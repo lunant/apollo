@@ -1,4 +1,0 @@
-
-.. automodule:: apollo.handler
-   :members:
-
